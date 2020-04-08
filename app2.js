@@ -24,10 +24,8 @@ fs.readFile('./master-popu-pref.csv', 'utf-8', (err, data) => {
         };
       }
       //全世代の合計
-      let sum = 0;
-      for (let i = 4; i < columns.length; i++) {
-        sum = sum + parseInt(columns[i]);
-      }
+      const reducer = (accumulator, currentvalue) => parseInt(accumulator) + parseInt(currentvalue);
+      const sum = columns.splice(4).reduce(reducer);
       switch (gender) {
         case '男':
           value.msum = sum;
@@ -44,6 +42,9 @@ fs.readFile('./master-popu-pref.csv', 'utf-8', (err, data) => {
 
   for (let [key, value] of preMap) {
     value.diff = value.fsum - value.msum;
+    if (0 > value.diff) {
+      value.diff = -value.diff;
+    }
   }
   const rankingArray = Array.from(preMap).sort((pair1, pair2) => {
     return pair2[1].diff - pair1[1].diff;
