@@ -11,18 +11,12 @@ let value;
 
 for (let line of lines) {
 
-//  let columns = line.split(',');  
-//  let year = parseInt(columns[0]);
-//  let prefecture = columns[1];
-//  let popu = parseInt(columns[3]);
-
   columns = line.split(',');  
   year = parseInt(columns[0]);
   prefecture = columns[1];
   popu = parseInt(columns[3]);
 
   if(year === 2010 || year === 2015){
-//    let value = preMap.get(prefecture);
   value = preMap.get(prefecture);
     if(!value){
       value = {
